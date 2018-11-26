@@ -17,7 +17,7 @@ function switching() {
             omdb();
             break;
         case "spotify-this-song":
-            mySpotify();
+            spotifyy();
             break;
         case "do-what-it-says":
             doWhat();
@@ -67,15 +67,32 @@ axios.get(queryUrl).then(
 }
 
 
-
-
-// spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-//     if (err) {
-//       return console.log('Error occurred: ' + err);
-//     }
+function spotifyy(){
+    var nodeArgs = process.argv;
+    var songName = ""
+for (var i = 3; i < nodeArgs.length; i++) {
+    
+      if (i > 2 && i < nodeArgs.length) {
+        songName = songName + "+" + nodeArgs[i];
+      
+      }
+      else {
+        songName = nodeArgs[i];
+    
+      }
+    }
+spotify.search({ type: 'track', query: songName }, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+    console.log(data.tracks.items[0].name);
+    console.log(data.tracks.items[0].album.artists[0].name);
+    console.log("A preview link of the song from Spotify: " + response.tracks.items[0].external_urls.spotify);
    
-//   console.log(data); 
-//   });
+//   console.log(JSON.stringify(data.external_urls,null,2)); 
+  });
+};
+
 function omdb(){
 
     
@@ -142,4 +159,4 @@ axios.get(queryUrl).then(
 );
 
 }
-// omdb()
+
