@@ -69,11 +69,14 @@ axios.get(queryUrl).then(
 
 function spotifyy(){
     var nodeArgs = process.argv;
-    var songName = ""
+    var songName = "";
+    // if( nodeArgs.length === 2){
+    //     songName = "The Sign"
+    // }
 for (var i = 3; i < nodeArgs.length; i++) {
     
       if (i > 2 && i < nodeArgs.length) {
-        songName = songName + "+" + nodeArgs[i];
+        songName = songName +  nodeArgs[i];
       
       }
       else {
@@ -81,13 +84,22 @@ for (var i = 3; i < nodeArgs.length; i++) {
     
       }
     }
-spotify.search({ type: 'track', query: songName }, function(err, data) {
+spotify.search({ type: 'track', query: songName, limit:1 }, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-    console.log(data.tracks.items[0].name);
-    console.log(data.tracks.items[0].album.artists[0].name);
-    console.log("A preview link of the song from Spotify: " + response.tracks.items[0].external_urls.spotify);
+    console.log(" ");
+    console.log("**********************************************************************");
+    console.log(" ");
+    console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
+    console.log(" ");
+    console.log("The song name: " +data.tracks.items[0].name);
+    console.log(" ");
+    console.log("A preview link of the song from Spotify: " + data.tracks.items[0].external_urls.spotify);
+    console.log(" ");
+    console.log("The Name of the Album: "+ data.tracks.items[0].album.name);
+    console.log(" ");
+    console.log("**********************************************************************");
    
 //   console.log(JSON.stringify(data.external_urls,null,2)); 
   });
