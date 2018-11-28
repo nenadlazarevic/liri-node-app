@@ -48,6 +48,20 @@ Also if we do not provide input, the program will output data for the movie 'Mr.
 
 ![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/defoult%20movie.png)
 
+### node liri.js do-what-it-says
+
+Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+
+This is how code is working:
+
+![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/do-what.png)
+
+### log.txt
+
+We made log.txt file for storing all data:
+
+![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/log.png)
+
 
 
 
