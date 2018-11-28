@@ -21,4 +21,3 @@ In that way we are keeping sensitive information hiden from public.
 
 We made function bandsInTown to search the Bands in Town Artist Events API.
 
-function
