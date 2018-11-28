@@ -5,8 +5,9 @@ var moment = require('moment');
 var axios = require('axios')
 var spotify = new Spotify(keys.spotify);
 var fs = require('fs');
-var action = ["spotify-this-song", "movie-this", "concert-this", "do-what-it-says"];
+// var action = ["spotify-this-song", "movie-this", "concert-this", "do-what-it-says"];
 var action = process.argv[2];
+var input = process.argv[3];
 function switching() {
     switch (action) {
 
@@ -20,7 +21,7 @@ function switching() {
             spotifyy();
             break;
         case "do-what-it-says":
-            doWhat();
+            doIt();
             break;
 
     }
@@ -28,13 +29,13 @@ function switching() {
 }
 switching();
 
-function bandsInTown() {
+function bandsInTown(input) {
     var nodeArgs = process.argv; 
     var artist = ""; 
-    for (var i = 3; i < nodeArgs.length; i++) {
+    for (var i = 4; i < nodeArgs.length; i++) {
     
-        if (i > 2 && i < nodeArgs.length) {
-          artist = artist +  nodeArgs[i];
+        if (i > 4 && i < nodeArgs.length) {
+          artist = artist +"+" + nodeArgs[i];
         
         }
         else {
@@ -43,7 +44,7 @@ function bandsInTown() {
         }
     }
 
-      var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+      var queryUrl = "https://rest.bandsintown.com/artists/" + input +"+"+ artist+ "/events?app_id=codingbootcamp";
 
       console.log(queryUrl);
 
@@ -67,33 +68,35 @@ axios.get(queryUrl).then(
 }
 
 
-function spotifyy(){
+function spotifyy(input){
     var nodeArgs = process.argv;
-    var songName = "";
-    // if( nodeArgs.length === 2){
-    //     songName = "The Sign"
-    // }
-for (var i = 3; i < nodeArgs.length; i++) {
+    // var songName = "";
+    // console.log(songName);
     
-      if (i > 2 && i < nodeArgs.length) {
-        songName = songName +  nodeArgs[i];
-      
-      }
-      else {
-        songName = nodeArgs[i];
-    
-      }
+    if( input == null){
+        input = "'The Sign, ace of base'"
     }
-spotify.search({ type: 'track', query: songName, limit:1 }, function(err, data) {
+// for (var i = 4; i < nodeArgs.length; i++) {
+    
+//       if (i > 4 && i < nodeArgs.length) {
+//         songName = songName +" "+  nodeArgs[i];
+      
+//       }
+//       else {
+//         songName = nodeArgs[i];
+    
+//       }
+//     }
+spotify.search({ type: 'track', query: input, limit:1 }, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-    console.log(" ");
+    console.log(' ');
     console.log("**********************************************************************");
     console.log(" ");
     console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
     console.log(" ");
-    console.log("The song name: " +data.tracks.items[0].name);
+    console.log("The song name: " + data.tracks.items[0].name);
     console.log(" ");
     console.log("A preview link of the song from Spotify: " + data.tracks.items[0].external_urls.spotify);
     console.log(" ");
@@ -108,33 +111,33 @@ spotify.search({ type: 'track', query: songName, limit:1 }, function(err, data) 
 function omdb(){
 
     
-    var nodeArgs = process.argv;
+    // var nodeArgs = process.argv;
      
-    // Create an empty variable for holding the movie name
-    var movieName = "";
+    // // Create an empty variable for holding the movie name
+    // var movieName = "";
     
-    if( nodeArgs.length === 2){
-         movieName = "Mr Nobody"
-     }
+    // if( nodeArgs.length === 2){
+        //  movieName = "Mr Nobody"
+    //  }
    
     // Loop through all the words in the node argument
     // And do a little for-loop magic to handle the inclusion of "+"s
-    for (var i = 3; i < nodeArgs.length; i++) {
+    // for (var i = 4; i < nodeArgs.length; i++) {
     
-      if (i > 2 && i < nodeArgs.length) {
-        movieName = movieName + "+" + nodeArgs[i];
+    //   if (i > 4 && i < nodeArgs.length) {
+    //     movieName = movieName + "+" + nodeArgs[i];
       
-      }
-      else {
-        movieName += nodeArgs[i];
+    //   }
+    //   else {
+    //     movieName += nodeArgs[i];
     
-      }
-    }
+    //   }
+    // }
 
    
 
 // Then run a request with axios to the OMDB API with the movie specified
-var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&apikey=trilogy";
+var queryUrl = "http://www.omdbapi.com/?t=" + input +  "&apikey=trilogy";
 
 // This line is just to help us debug against the actual URL.
 console.log(queryUrl);
@@ -143,7 +146,7 @@ console.log(queryUrl);
 
 axios.get(queryUrl).then(
   function(response) {
-    console.log(" ");
+    console.log(response.data);
     console.log("**********************************************************************");
 
     console.log("Title: " + response.data.Title);
@@ -163,12 +166,34 @@ axios.get(queryUrl).then(
     console.log("Actors: "+ response.data.Actors);
     console.log("**********************************************************************");
     console.log(" ");
-   
-    
-    
-
-  }
+   }
 );
 
 }
+function doIt() {
+    fs.readFile("random.txt", "utf8", function(error, data) {
+
+        if (error) {
+            return console.log(error);
+        }
+        
+
+        var dataArr = data.split(",");
+        
+
+        console.log(dataArr[1]);
+         
+        
+        
+        
+        
+        if ( dataArr[0] === "spotify-this-song") {
+            // input = dataArr[1]
+            // console.log(input);
+            
+            spotifyy(dataArr[1])
+        }
+    })
+}
+
 
