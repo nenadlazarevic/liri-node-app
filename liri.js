@@ -148,8 +148,6 @@ function doIt() {
 
         var dataArr = data.split(",");
         
-
-        console.log(dataArr[1]);
          
         
         
