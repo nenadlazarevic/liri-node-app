@@ -17,7 +17,38 @@ In that way we are keeping sensitive information hiden from public.
 
 ## Running liri.js code
 
-#### bands in town API
+### bands in town API
 
 We made function bandsInTown to search the Bands in Town Artist Events API.
+
+Here you can see how code is working
+We also use moment metod to set format of the date.
+
+![concert-this](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/concert-this.png)
+
+### NPM node-spotify-api
+
+We made function fot taking information from npm spotify.
+
+If no song is provided then our program will default to "The Sign" by Ace of Base
+this is how running code is working.
+
+
+![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/spotify.png)
+
+### Movie-this
+
+We made function for taking information about movie
+
+This is how running code is working
+
+![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/movie.png)
+
+Also if we do not provide input, the program will output data for the movie 'Mr. Nobody.'
+
+![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/defoult%20movie.png)
+
+
+
+
 
