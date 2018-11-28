@@ -5,20 +5,18 @@ var moment = require('moment');
 var axios = require('axios')
 var spotify = new Spotify(keys.spotify);
 var fs = require('fs');
-// var action = ["spotify-this-song", "movie-this", "concert-this", "do-what-it-says"];
 var action = process.argv[2];
 var input = process.argv[3];
 function switching() {
     switch (action) {
-
         case "concert-this":
-            bandsInTown();
+            bandsInTown(input);
             break;
         case "movie-this":
-            omdb();
+            omdb(input);
             break;
         case "spotify-this-song":
-            spotifyy();
+            spotifyy(input);
             break;
         case "do-what-it-says":
             doIt();
@@ -46,126 +44,96 @@ function bandsInTown(input) {
 
       var queryUrl = "https://rest.bandsintown.com/artists/" + input +"+"+ artist+ "/events?app_id=codingbootcamp";
 
-      console.log(queryUrl);
 
 
 
 axios.get(queryUrl).then(
   function(response) {
-    console.log(" ");
-    console.log("**********************************************************************");
-      console.log("Name of the venue: " + response.data[0].venue.name);
-      console.log(" ");
-    console.log("Venue location: " + response.data[0].venue.city+", " + response.data[0].venue.region);
-    console.log(" ");
-    console.log("Date of evant: "+ moment(response.data[0].datetime).format('LLL') );
-    console.log(" ");
-    console.log("**********************************************************************");
+      var bandInfo =
+    " "+"\r\n"+
+    "**********************************************************************"+"\r\n"+
+    "Name of the venue: " + response.data[0].venue.name+"\r\n"+
+    (" ")+"\r\n"+
+    "Venue location: " + response.data[0].venue.city+", " + response.data[0].venue.region+"\r\n"+
+    " "+"\r\n"+
+    "Date of evant: "+ moment(response.data[0].datetime).format('LLL')+"\r\n"+
+    " "+"\r\n"+
+    "**********************************************************************";
     
+    console.log(bandInfo);
+     log(bandInfo)
     
 
-  })
+  });
 }
 
 
 function spotifyy(input){
-    var nodeArgs = process.argv;
-    // var songName = "";
-    // console.log(songName);
     
     if( input == null){
         input = "'The Sign, ace of base'"
     }
-// for (var i = 4; i < nodeArgs.length; i++) {
-    
-//       if (i > 4 && i < nodeArgs.length) {
-//         songName = songName +" "+  nodeArgs[i];
-      
-//       }
-//       else {
-//         songName = nodeArgs[i];
-    
-//       }
-//     }
-spotify.search({ type: 'track', query: input, limit:1 }, function(err, data) {
+
+spotify.search({ type: 'track', query: input, }, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-    console.log(' ');
-    console.log("**********************************************************************");
-    console.log(" ");
-    console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
-    console.log(" ");
-    console.log("The song name: " + data.tracks.items[0].name);
-    console.log(" ");
-    console.log("A preview link of the song from Spotify: " + data.tracks.items[0].external_urls.spotify);
-    console.log(" ");
-    console.log("The Name of the Album: "+ data.tracks.items[0].album.name);
-    console.log(" ");
-    console.log("**********************************************************************");
+    var songResult =
+    " " +
+    "**********************************************************************"+"\r\n"+
+    " "+"\r\n"+
+    "Artist: " + data.tracks.items[0].album.artists[0].name +"\r\n"+
+    " "+"\r\n"+
+    "The song name: " + data.tracks.items[0].name+"\r\n"+
+     " "+"\r\n"+
+    "A preview link of the song from Spotify: " + data.tracks.items[0].external_urls.spotify+"\r\n"+
+    " "+"\r\n"+
+    "The Name of the Album: "+ data.tracks.items[0].album.name+"\r\n"+
+    " "+"\r\n"+
+    "**********************************************************************";
+    console.log(songResult);
+   log(songResult)
+    
    
-//   console.log(JSON.stringify(data.external_urls,null,2)); 
   });
+  
 };
 
 function omdb(){
+    if( input == null){
+        input = "'Mr. Nobody'"
+    }
 
-    
-    // var nodeArgs = process.argv;
-     
-    // // Create an empty variable for holding the movie name
-    // var movieName = "";
-    
-    // if( nodeArgs.length === 2){
-        //  movieName = "Mr Nobody"
-    //  }
-   
-    // Loop through all the words in the node argument
-    // And do a little for-loop magic to handle the inclusion of "+"s
-    // for (var i = 4; i < nodeArgs.length; i++) {
-    
-    //   if (i > 4 && i < nodeArgs.length) {
-    //     movieName = movieName + "+" + nodeArgs[i];
-      
-    //   }
-    //   else {
-    //     movieName += nodeArgs[i];
-    
-    //   }
-    // }
-
-   
-
-// Then run a request with axios to the OMDB API with the movie specified
 var queryUrl = "http://www.omdbapi.com/?t=" + input +  "&apikey=trilogy";
-
-// This line is just to help us debug against the actual URL.
-console.log(queryUrl);
 
 
 
 axios.get(queryUrl).then(
   function(response) {
-    console.log(response.data);
-    console.log("**********************************************************************");
+      var movieInfo =
+    
+    "**********************************************************************"+"\r\n"+
 
-    console.log("Title: " + response.data.Title);
-    console.log(" ");
-    console.log("Release Year: " + response.data.Year);
-    console.log(" ");
-    console.log(response.data.Ratings[0].Source +" : "+ response.data.Ratings[0].Value);
-    console.log(" ");
-    console.log(response.data.Ratings[1].Source +" : "+ response.data.Ratings[1].Value);
-    console.log(" ");
-    console.log("Country: "+ response.data.Country);
-    console.log(" ");
-    console.log("Language: "+ response.data.Language);
-    console.log(" ");
-    console.log("Plot: "+ response.data.Plot);
-    console.log(" ");
-    console.log("Actors: "+ response.data.Actors);
-    console.log("**********************************************************************");
-    console.log(" ");
+    "Title: " + response.data.Title+"\r\n"+
+    " "+"\r\n"+
+    "Release Year: " + response.data.Year+"\r\n"+
+    " "+"\r\n"+
+    response.data.Ratings[0].Source +" : "+ response.data.Ratings[0].Value+"\r\n"+
+    " "+"\r\n"+
+    response.data.Ratings[1].Source +" : "+ response.data.Ratings[1].Value+"\r\n"+
+    " "+"\r\n"+
+    "Country: "+ response.data.Country+"\r\n"+
+    " "+"\r\n"+
+    "Language: "+ response.data.Language+"\r\n"+
+    " "+"\r\n"+
+    "Plot: "+ response.data.Plot+"\r\n"+
+    " "+"\r\n"+
+    "Actors: "+ response.data.Actors+"\r\n"+
+    "**********************************************************************"+"\r\n"+
+    " ";
+    console.log(movieInfo);
+    log(movieInfo)
+    
    }
 );
 
@@ -188,12 +156,27 @@ function doIt() {
         
         
         if ( dataArr[0] === "spotify-this-song") {
-            // input = dataArr[1]
-            // console.log(input);
             
             spotifyy(dataArr[1])
+            
+            
         }
     })
 }
+function log(logResults){
+    fs.appendFile("log.txt","\r\n"+ logResults + "\r\n", function(err) {
+
+       
+        if (err) {
+          console.log(err);
+        }
+      
+        else {
+          console.log("Content Added to log.txt file");
+        }
+      
+      });
+}
+
 
 
