@@ -2,18 +2,18 @@
 
 ##### LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
 
-1.We have .gitgnore file to tell what files won't be commited to the github
+1. We have the .gitgnore file to tell us what files won't be commited to github
 
-2. Key.js file will load information of Api keys from .env file
+2. Key.js file will load information of api keys from .env file
 
-3. env file will have our information of Api keys and becouse is in gitgnore file it won't be commited to the git.
-In that way we are keeping sensitive information hiden from public.
+3. env file will have our information of api keys and because is in the .gitgnore file it won't be commited to the git.
+In this way we can keep sensitive information hidden from public.
 
 4. This file will be used by the NPM "dotenv" package to set what are known as environment variables to the global process.env object in node.
 
-5. We made random.txt file to send commands to our code when is called in terminal
+5. We made a random.txt file to send commands to our code when it is called in terminal
 
-6 We have log.txt file to store our data.
+6 We have the log.txt file to store our data.
 
 ## Running liri.js code
 
@@ -28,10 +28,10 @@ We also use moment metod to set format of the date.
 
 ### NPM node-spotify-api
 
-We made function fot taking information from npm spotify.
+We made a function for taking information from npm spotify.
 
 If no song is provided then our program will default to "The Sign" by Ace of Base
-this is how running code is working.
+this is how the running code is working.
 
 
 ![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/spotify.png)
@@ -40,7 +40,7 @@ this is how running code is working.
 
 We made function for taking information about movie
 
-This is how running code is working
+This is how the running code is working
 
 ![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/movie.png)
 
@@ -52,7 +52,7 @@ Also if we do not provide input, the program will output data for the movie 'Mr.
 
 Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 
-This is how code is working:
+This is how the code is working:
 
 ![GitHub Logo](https://github.com/nenadlazarevic/liri-node-app/blob/master/assets/images/do-what.png)
 
